@@ -1,0 +1,25 @@
+:root { --pad: 16px; --radius: 12px; }
+* { box-sizing: border-box; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0; color: #e6e6e6; background: #0b0b0b;
+}
+.top { padding: 24px var(--pad); text-align: center; background: #111; border-bottom: 1px solid #222;}
+h1 { margin: 0 0 6px; font-size: 24px; }
+.sub { margin: 0; opacity: .8; font-size: 14px; }
+main { padding: 20px var(--pad); max-width: 720px; margin: 0 auto; }
+.card { background: #121212; border: 1px solid #232323; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+label { display:block; margin: 10px 0 4px; font-weight: 600; }
+input, select, button {
+  width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #2a2a2a; background: #0f0f0f; color: #f0f0f0;
+}
+button { margin-top: 14px; font-weight: 700; cursor: pointer; }
+.grid { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+.result { margin-top: 14px; }
+.hidden { display: none; }
+.total { font-size: 18px; margin-top: 10px; }
+ul { margin-top: 8px; }
+.foot { text-align:center; padding: 20px; color: #a1a1a1; }
+@media (min-width: 720px) {
+  h1 { font-size: 28px; }
+}

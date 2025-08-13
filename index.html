@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rema Auto Body — Instant Estimate</title>
+  <meta name="description" content="Rema Auto Body — quick estimate for body work, custom wraps, paint, and carbon fiber pieces.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Rema Auto Body</h1>
+    <p class="sub">Instant Estimate • 3614 East Street • Custom wraps • Paint • Carbon fiber</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Get a quick estimate</h2>
+      <form id="estimator">
+        <label>Body labor hours
+          <input type="number" id="laborHours" min="0" step="0.5" placeholder="e.g. 3">
+        </label>
+
+        <label>Number of parts to replace
+          <input type="number" id="partsCount" min="0" step="1" placeholder="e.g. 1">
+        </label>
+
+        <div class="grid">
+          <label>Paint type
+            <select id="paintType">
+              <option value="none">No paint</option>
+              <option value="basic">Basic</option>
+              <option value="pearl">Pearl / Tri-coat</option>
+              <option value="metallic">Metallic</option>
+            </select>
+          </label>
+          <label>Paint area
+            <select id="paintArea">
+              <option value="panel">Single panel</option>
+              <option value="bumper">Bumper</option>
+              <option value="hood">Hood</option>
+              <option value="full">Full car (basic)</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Wrap / Carbon fiber (optional)
+          <select id="extras">
+            <option value="none">None</option>
+            <option value="wrap">Wrap accent</option>
+            <option value="carbon">Carbon fiber piece</option>
+          </select>
+        </label>
+
+        <button type="button" id="calc">Calculate</button>
+      </form>
+
+      <div id="result" class="result hidden">
+        <h3>Rough estimate</h3>
+        <div id="breakdown"></div>
+        <div class="total">Estimated total: <strong id="total"></strong></div>
+        <p class="fineprint">This is a ballpark estimate. Final pricing may vary after in‑person inspection.</p>
+      </div>
+    </section>
+
+    <section class="card contact">
+      <h2>Contact & Upload Photos</h2>
+      <p>Text photos for a detailed quote:</p>
+      <ul>
+        <li>Phone: <a href="tel:+1-000-000-0000">+1 (000) 000-0000</a></li>
+        <li>Address: 3614 East Street</li>
+        <li>Hours: Mon–Sat 9am–6pm</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>© <span id="year"></span> Rema Auto Body</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
