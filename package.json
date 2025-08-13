@@ -1,0 +1,15 @@
+{
+  "name": "rema-auto-body-estimator",
+  "version": "1.0.0",
+  "description": "Rema Auto Body - instant estimate site (Render-ready Node.js/Express)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
