@@ -1,1 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instant Repair Estimate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0f0f12;--card:#16181d;--text:#e6e7ea;--muted:#9aa0a6;--line:#2a2d33;--purple:#7c3aed;--purple2:#6d28d9;--ok:#34d399}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  a{color:var(--purple)}
+  .wrap{max-width:980px;margin:18px auto;padding:0 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  h1{margin:8px 0 12px;font-size:28px}
+  h2{margin:0 0 8px}
+  label{display:block;margin:10px 0 6px;font-weight:600}
+  input,select,button,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#101216;color:var(--text)}
+  .row{display:grid;gap:10px} @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
+  .btn{background:linear-gradient(90deg,var(--purple),var(--purple2));border:0;color:#fff;font-weight:800;cursor:pointer}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .muted{color:var(--muted);font-size:14px}
+  .preview{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .preview img{width:96px;height:96px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+  .kpi{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4)}
+  .total{font-size:28px;font-weight:800}
+  .ok{color:var(--ok);font-weight:800}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Instant Repair Estimate</h1>
+    <p class="muted">Upload photos, enter vehicle details (VIN preferred), and get a price <b>range</b>. Final parts pricing is confirmed with the dealer.</p>
 
+    <!-- Vehicle -->
+    <div class="card">
+      <h2>Vehicle</h2>
+      <div class="row">
+        <div>
+          <label>VIN (17 chars)</label>
+          <input id="vin" placeholder="e.g., 1HGCM82633A004352" maxlength="17">
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button id="decode"
