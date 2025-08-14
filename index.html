@@ -1,40 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rema Auto Body • Exotic Marketplace & Instant Estimate</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rema Auto • Exotics Marketplace</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <!-- Top Nav -->
+  <!-- Sticky header -->
   <header class="topbar">
     <nav class="nav">
-      <div class="brand">Rema Auto • Exotics</div>
-      <div class="navspace"></div>
-      <a class="btn btn-outline" href="tel:+10000000000">Call</a>
-      <a class="btn" href="#estimate">Instant Estimate</a>
+      <div class="brand">Rema Auto</div>
+      <div class="nav-links">
+        <a href="/estimate.html" class="btn">Instant Photo Estimate</a>
+      </div>
     </nav>
   </header>
 
-  <!-- Hero with search -->
+  <!-- Hero with big search -->
   <section class="hero">
-    <div class="heroShade">
-      <div class="heroInner">
-        <h1>Find Your Dream Supercar</h1>
-        <p class="heroSub">Lamborghini • Ferrari • McLaren • Porsche • Aston Martin</p>
-        <div class="searchBar">
-          <input id="q" placeholder="Search model (e.g., Aventador, 488, 720S)">
-          <select id="price">
-            <option value="">Any price</option>
-            <option value="200">Under $200k</option>
-            <option value="300">$200k–$300k</option>
-            <option value="400">$300k–$400k</option>
-            <option value="401">Over $400k</option>
-          </select>
-          <select id="brand">
-            <option value="">All brands</option>
-            <option value="Lamborghini">Lamborghini</option>
-            <
+    <div class="hero-inner">
+      <h1>Shop Exotics & Supercars</h1>
+      <p class="muted">Lamborghini • Ferrari • McLaren • Porsche • Aston Martin</p>
+      <div class="searchBar">
+        <input id="q" placeholder="Search model (Aventador, 488, 720S…)" />
+        <select id="brand">
+          <option value="">All brands</option>
+          <option>Lamborghini</option><option>Ferrari</option>
+          <option>McLaren</option><option>Porsche</option><option>Aston Martin</option>
+        </select>
+        <select id="price">
+          <option value="">Any price</option>
+          <option value="200">Under $200k</option>
+          <option value="300">$200k–$300k</option>
+          <option value="400">$300k–$400k</option>
+          <option value="401">Over $400k</option>
+        </select>
+        <button id="searchBtn" class="btn">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main layout: filters + listings -->
+  <main class="page">
+    <aside class="panel filters">
+      <h3>Filter</h3>
+      <div class="hr"></div>
+      <label>Year (min)</label>
+      <input id="yearMin" type="number" placeholder="2017" />
+      <label>Mileage (max)</label>
+      <input id="milesMax" type="number" placeholder="25,000" />
+      <button id="apply" class="btn full">Apply Filters</button>
+    </aside>
+
+    <section>
+      <div class="toolbar">
+        <div id="count" class="muted">0 results</div>
+      </div>
+
+      <div id="grid" class="grid"><!-- cards injected here --></div>
+    </section>
+  </main>
+
+  <footer class="ft">© Rema Auto Body • <a href="/estimate.html">Instant Estimate</a></footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
