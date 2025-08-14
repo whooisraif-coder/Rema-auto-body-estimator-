@@ -1,46 +1,200 @@
-<!doctype html>
-<html lang="en">
-<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Instant Repair Estimate</title>
+<title>Instant Photo Estimate • Rema Auto Body</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0f0f12;--card:#16181d;--text:#e6e7ea;--muted:#9aa0a6;--line:#2a2d33;--purple:#7c3aed;--purple2:#6d28d9;--ok:#34d399}
+  :root{--bg:#0f1014;--card:#16181d;--text:#e6e7ea;--muted:#a0a6ad;--line:#2a2d33;--purple:#7c3aed;--purple2:#6d28d9;--ok:#34d399}
   *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
   a{color:var(--purple)}
-  .wrap{max-width:980px;margin:18px auto;padding:0 14px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  .wrap{max-width:980px;margin:20px auto;padding:0 14px}
   h1{margin:8px 0 12px;font-size:28px}
-  h2{margin:0 0 8px}
-  label{display:block;margin:10px 0 6px;font-weight:600}
-  input,select,button,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#101216;color:var(--text)}
-  .row{display:grid;gap:10px} @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
-  .btn{background:linear-gradient(90deg,var(--purple),var(--purple2));border:0;color:#fff;font-weight:800;cursor:pointer}
-  .btn:disabled{opacity:.5;cursor:not-allowed}
   .muted{color:var(--muted);font-size:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  label{display:block;margin:10px 0 6px;font-weight:600}
+  input,select,button,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#11141a;color:var(--text)}
+  .row{display:grid;gap:10px} @media(min-width:740px){.row{grid-template-columns:1fr 1fr}}
+  .btn{background:linear-gradient(90deg,var(--purple),var(--purple2));border:0;color:#fff;font-weight:800;cursor:pointer}
+  .btn.alt{background:transparent;border:1px solid #3a3d44}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .steps{display:flex;gap:10px;margin:8px 0 16px}
+  .step{flex:1;text-align:center;padding:10px;border:1px solid var(--line);border-radius:10px}
+  .step.active{border-color:var(--purple);box-shadow:0 0 0 2px rgba(124,58,237,.25)}
   .preview{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
   .preview img{width:96px;height:96px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
-  .kpi{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
-  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4)}
-  .total{font-size:28px;font-weight:800}
-  .ok{color:var(--ok);font-weight:800}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{padding:8px 10px;border:1px solid #3a3d44;border-radius:999px;background:#121318;color:#ddd;cursor:pointer}
+  .chip.sel{border-color:var(--purple);box-shadow:0 0 0 2px rgba(124,58,237,.25)}
+  .result{margin-top:14px;padding:14px;border-radius:10px;background:#0e1014;border:1px solid var(--line)}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Instant Repair Estimate</h1>
+    <h1>Instant Photo Estimate</h1>
     <p class="muted">Upload photos, enter vehicle details (VIN preferred), and get a price <b>range</b>. Final parts pricing is confirmed with the dealer.</p>
 
-    <!-- Vehicle -->
-    <div class="card">
-      <h2>Vehicle</h2>
-      <div class="row">
-        <div>
-          <label>VIN (17 chars)</label>
-          <input id="vin" placeholder="e.g., 1HGCM82633A004352" maxlength="17">
+    <div class="steps">
+      <div class="step active" id="s1">1 • Vehicle</div>
+      <div class="step" id="s2">2 • Photos & Damage</div>
+      <div class="step" id="s3">3 • Estimate</div>
+    </div>
+
+    <form id="wizard" class="card">
+      <!-- STEP 1: VEHICLE -->
+      <section data-step="1">
+        <div class="row">
+          <div>
+            <label>VIN (17 chars)</label>
+            <input id="vin" name="vin" maxlength="17" placeholder="e.g., 1HGCM82633A004352">
+          </div>
+          <div>
+            <label>&nbsp;</label>
+            <button id="decode" class="btn" type="button">Decode VIN</button>
+          </div>
+
+          <div>
+            <label>Year</label>
+            <input name="year" type="number" min="1990" max="2035" placeholder="e.g., 2020">
+          </div>
+          <div>
+            <label>Make</label>
+            <input name="make" placeholder="e.g., Ferrari">
+          </div>
+          <div>
+            <label>Model</label>
+            <input name="model" placeholder="e.g., 488">
+          </div>
+          <div>
+            <label>Trim (optional)</label>
+            <input name="trim" placeholder="e.g., GTB">
+          </div>
+          <div>
+            <label>Mileage (approx.)</label>
+            <input name="mileage" type="number" min="0" step="100" placeholder="e.g., 42000">
+          </div>
+          <div>
+            <label>Labor hours (optional)</label>
+            <input name="laborHours" type="number" min="0" step="0.5" placeholder="If you know it">
+          </div>
         </div>
-        <div>
-          <label>&nbsp;</label>
-          <button id="decode"
+        <p class="muted">VIN decode uses public NHTSA data; if unavailable, fill Year/Make/Model manually.</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+          <button class="btn" data-next>Continue</button>
+        </div>
+      </section>
+
+      <!-- STEP 2: PHOTOS & DAMAGE -->
+      <section data-step="2" hidden>
+        <label>Upload damage photos</label>
+        <input id="photos" type="file" name="photos" accept="image/*" capture="environment" multiple>
+        <div id="preview" class="preview"></div>
+
+        <label style="margin-top:12px">Select damaged areas</label>
+        <div class="chips" id="areas">
+          <div class="chip">Front bumper</div><div class="chip">Rear bumper</div>
+          <div class="chip">Hood</div><div class="chip">Left fender</div><div class="chip">Right fender</div>
+          <div class="chip">Left door</div><div class="chip">Right door</div>
+          <div class="chip">Quarter panel</div><div class="chip">Roof</div>
+          <div class="chip">Headlight</div><div class="chip">Taillight</div>
+          <div class="chip">Glass</div><div class="chip">Wheel</div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label>Paint size</label>
+            <select name="paintSize">
+              <option value="none">No paint</option>
+              <option value="small">Small panel ($300)</option>
+              <option value="mid">Mid panel ($500)</option>
+              <option value="full">Full car sedan ($3000)</option>
+            </select>
+          </div>
+          <div>
+            <label>Dealer parts total (optional)</label>
+            <input name="dealerPartsTotal" type="number" step="0.01" placeholder="Enter total if already quoted">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;justify-content:space-between;margin-top:12px">
+          <button class="btn alt" data-prev>Back</button>
+          <button class="btn" data-next>See Estimate</button>
+        </div>
+      </section>
+
+      <!-- STEP 3: RESULT -->
+      <section data-step="3" hidden>
+        <div id="result" class="result">Calculating…</div>
+        <p class="muted" style="margin-top:8px">
+          * Range reflects visual severity. Final quote may change after in-person inspection and dealer parts pricing.
+        </p>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+          <button class="btn alt" data-prev>Edit</button>
+          <a class="btn" href="tel:+10000000000">Call to Book Repair</a>
+        </div>
+      </section>
+    </form>
+  </div>
+
+<script>
+  // Stepper
+  const wizard = document.getElementById('wizard');
+  const steps = [...wizard.querySelectorAll('[data-step]')];
+  const pills = [document.getElementById('s1'), document.getElementById('s2'), document.getElementById('s3')];
+  let step = 1;
+  function show(n){ steps.forEach(s=>s.hidden = (Number(s.dataset.step)!==n)); pills.forEach((p,i)=>p.classList.toggle('active', i===n-1)); step=n; }
+  wizard.addEventListener('click', (e)=>{
+    if(e.target.matches('[data-next]')){ e.preventDefault(); show(Math.min(step+1,3)); if(step===3) submitEstimate(); }
+    if(e.target.matches('[data-prev]')){ e.preventDefault(); show(Math.max(step-1,1)); }
+    if(e.target.classList.contains('chip')) e.target.classList.toggle('sel');
+  });
+
+  // VIN decode (public NHTSA)
+  document.getElementById('decode')?.addEventListener('click', async ()=>{
+    const vin = document.getElementById('vin').value.trim();
+    if (vin.length < 11) return alert('Enter a valid VIN (at least 11 chars).');
+    try {
+      const r = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/${encodeURIComponent(vin)}?format=json`);
+      const j = await r.json();
+      const row = j?.Results?.[0] || {};
+      const set = (n,v)=>{ const el = wizard.querySelector(`[name="${n}"]`); if(el && v) el.value = v; };
+      set('year', row.ModelYear); set('make', row.Make); set('model', row.Model); set('trim', row.Trim);
+      alert('VIN decoded. Check the fields filled in.');
+    } catch { alert('VIN decode failed. You can fill Y/M/M/T manually.'); }
+  });
+
+  // Photo previews
+  const input = document.getElementById('photos');
+  const preview = document.getElementById('preview');
+  input?.addEventListener('change', () => {
+    preview.innerHTML = '';
+    [...input.files].slice(0,8).forEach(f => { const img = document.createElement('img'); img.src = URL.createObjectURL(f); preview.appendChild(img); });
+  });
+
+  async function submitEstimate(){
+    const result = document.getElementById('result');
+    result.textContent = 'Analyzing photos…';
+
+    const fd = new FormData();
+    // Collect fields
+    ['vin','year','make','model','trim','mileage','laborHours','paintSize','dealerPartsTotal'].forEach(k=>{
+      const el = wizard.querySelector(`[name="${k}"]`); if (el && el.value) fd.append(k, el.value);
+    });
+    // Damage area chips
+    const areas = [...wizard.querySelectorAll('.chip.sel')].map(x=>x.textContent);
+    fd.append('damageAreas', JSON.stringify(areas));
+    // Photos
+    [...(input?.files||[])].forEach(f => fd.append('photos', f));
+
+    try{
+      const res = await fetch('/api/estimate-v2', { method:'POST', body: fd });
+      const data = await res.json();
+      const partsLine = data.partsTBD ? 'Parts: TBD (dealer pricing)' : `$${data.breakdown.parts}`;
+      result.innerHTML = `
+        <div><strong>Estimated range:</strong> <strong>$${data.range.low} – $${data.range.high}</strong></div>
+        <div class="muted">Labor: $${data.breakdown.labor} • Paint: $${data.breakdown.paint} • Parts: ${partsLine}</div>
+        <div class="muted">Confidence: ${Math.round(data.confidence*100)}%</div>
+        <div class="muted">Vehicle: ${data.vehicle.summary} ${data.vehicle.mileage ? '• ' + data.vehicle.mileage : ''}</div>
+      `;
+    }catch(e){
+      result.textContent = 'Sorry, something went wrong. Please try again.';
+    }
